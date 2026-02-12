@@ -46,3 +46,15 @@ class Item(models.Model):
 
     def __str__(self):
         return f"{self.title} — {self.store.name}"
+
+    def whatsapp_url(self, request=None):
+        import urllib.parse
+
+        phone = "".join(filter(str.isdigit, self.store.whatsapp_number))
+
+        item_url = ""
+        if request is not None:
+            item_url = request.build_absolute_uri()
+
+        text = f"Hola! Vi este artículo en Recloset: {self.title}. ¿Está disponible? {item_url}".strip()
+        return f"https://wa.me/{phone}?text={urllib.parse.quote(text)}"
