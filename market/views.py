@@ -7,4 +7,5 @@ def home(request):
 
 def item_detail(request, pk):
     item = get_object_or_404(Item, pk=pk, is_available=True)
-    return render(request, "market/item_detail.html", {"item": item})
+    whatsapp_link = item.whatsapp_url(request=request)
+    return render(request, "market/item_detail.html", {"item": item, "whatsapp_link": whatsapp_link})
