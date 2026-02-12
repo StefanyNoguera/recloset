@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recloset</title>
+</head>
+<body>
+    <h1>Recloset</h1>
+    <h2>Latest items</h2>
+
+    {% for item in items %}
+        <div style="margin-bottom: 20px;">
+            <h3>{{ item.title }}</h3>
+
+            {% if item.photo %}
+                <img src="{{ item.photo.url }}" width="200">
+            {% endif %}
+
+            <p>Price: ${{ item.price_cop }}</p>
+            <p>Size: {{ item.size }}</p>
+            <p>Store: {{ item.store.name }}</p>
+        </div>
+    {% empty %}
+        <p>No items yet.</p>
+    {% endfor %}
+</body>
+</html>
