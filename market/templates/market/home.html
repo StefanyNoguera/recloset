@@ -9,7 +9,7 @@
 
     {% for item in items %}
         <div style="margin-bottom: 20px;">
-            <h3>{{ item.title }}</h3>
+            <h3><a href="{% url 'item_detail' item.pk %}">{{ item.title }}</a></h3>
 
             {% if item.photo %}
                 <img src="{{ item.photo.url }}" width="200">
