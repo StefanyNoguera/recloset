@@ -33,7 +33,7 @@ class Item(models.Model):
     store = models.ForeignKey(Store, on_delete=models.CASCADE, related_name="items")
 
     title = models.CharField(max_length=140)
-    description = models.TextField
+    description = models.TextField()
 
     price = models.PositiveIntegerField(help_text="Precio en pesos colombianos, no puntos/comas")
     size = models.CharField(max_length=20, help_text="Ejemplo: S, M, L, 28, 40, Única")
