@@ -5,8 +5,8 @@
 {% block content %}
   <div class="flex items-end justify-between gap-4 mb-6">
     <div>
-      <h1 class="text-2xl font-semibold">Explore secondhand</h1>
-      <p class="text-gray-600">Browse items from thrift stores.</p>
+      <h1 class="text-2xl font-semibold">Explora segunda mano</h1>
+      <p class="text-gray-600">Descubre prendas de tiendas de segunda mano.</p>
     </div>
   </div>
 
@@ -18,7 +18,7 @@
             {% if item.photo %}
               <img src="{{ item.photo.url }}" alt="{{ item.title }}" class="w-full h-full object-cover">
             {% else %}
-              <div class="w-full h-full flex items-center justify-center text-gray-400 text-sm">No photo</div>
+              <div class="w-full h-full flex items-center justify-center text-gray-400 text-sm">Sin foto</div>
             {% endif %}
           </div>
 
@@ -36,7 +36,8 @@
     </div>
   {% else %}
     <div class="bg-white border rounded-xl p-6">
-      <p class="text-gray-600">No items yet.</p>
+      <p class="text-gray-600">Sin productos aún.</p>
     </div>
   {% endif %}
 {% endblock %}
+    
