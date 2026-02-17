@@ -48,7 +48,9 @@
 
       <div class="mt-6 bg-white border rounded-xl p-4">
         <p class="text-sm text-gray-500">Tienda</p>
-        <p class="font-medium">{{ item.store.name }}</p>
+        <a href="{% url 'store_detail' item.store.pk %}" class="font-medium hover:underline">
+          {{ item.store.name }}
+        </a>
         {% if item.store.city %}<p class="text-sm text-gray-600">{{ item.store.city }}</p>{% endif %}
 
         <a href="{{ whatsapp_link }}"
