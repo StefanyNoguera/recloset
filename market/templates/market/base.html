@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Recloset{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900">
+  <header class="bg-white border-b">
+    <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="{% url 'home' %}" class="text-xl font-semibold">Recloset</a>
+      <a href="/admin/" class="text-sm text-gray-600 hover:text-gray-900">Admin</a>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 py-6">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="max-w-5xl mx-auto px-4 py-10 text-sm text-gray-500">
+    <p>Vintage Colombia — MVP</p>
+  </footer>
+</body>
+</html>
