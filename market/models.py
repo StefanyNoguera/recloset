@@ -16,19 +16,19 @@ class Store(models.Model):
 
 class Item(models.Model):
     class Category(models.TextChoices):
-        TOPS = "tops", "Tops"
-        BOTTOMS = "bottoms", "Bottoms"
-        DRESSES = "dresses", "Dresses"
-        OUTERWEAR = "outerwear", "Outerwear"
-        SHOES = "shoes", "Shoes"
-        ACCESSORIES = "accessories", "Accessories"
-        OTHER = "other", "Other"
+        TOPS = "tops", "Blusas / Tops"
+        BOTTOMS = "bottoms", "Pantalones / Faldas"
+        DRESSES = "dresses", "Vestidos"
+        OUTERWEAR = "outerwear", "Chaquetas / Abrigos"
+        SHOES = "shoes", "Zapatos"
+        ACCESSORIES = "accessories", "Accesorios"
+        OTHER = "other", "Otro"
 
     class Condition(models.TextChoices):
-        NEW = "new", "New"
-        LIKE_NEW = "like_new", "Like new"
-        GOOD = "good", "Good"
-        FAIR = "fair", "Fair"
+        NEW = "new", "Nuevo"
+        LIKE_NEW = "like_new", "Como nuevo"
+        GOOD = "good", "Buena"
+        FAIR = "fair", "Aceptable"
 
     store = models.ForeignKey(Store, on_delete=models.CASCADE, related_name="items")
 
