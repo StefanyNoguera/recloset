@@ -1,0 +1,52 @@
+{% extends "market/base.html" %}
+
+{% block title %}{{ store.name }} - Recloset{% endblock %}
+
+{% block content %}
+  <div class="mb-4">
+    <a href="{% url 'home' %}" class="text-sm text-gray-600 hover:text-gray-900">← Volver</a>
+  </div>
+
+  <div class="bg-white border rounded-2xl p-5 mb-6">
+    <h1 class="text-2xl font-semibold">{{ store.name }}</h1>
+    <p class="text-gray-600 mt-1">{{ store.city }}</p>
+
+    <div class="mt-4 flex flex-col sm:flex-row gap-3">
+      <a href="https://wa.me/{{ store.whatsapp_number }}"
+         class="inline-flex items-center justify-center rounded-xl bg-green-600 text-white font-medium py-3 px-4 hover:bg-green-700 transition">
+        Contactar por WhatsApp
+      </a>
+
+      {% if store.instagram_handle %}
+        <a href="https://instagram.com/{{ store.instagram_handle }}"
+           class="inline-flex items-center justify-center rounded-xl bg-gray-900 text-white font-medium py-3 px-4 hover:opacity-90 transition">
+          Ver Instagram (@{{ store.instagram_handle }})
+        </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <h2 class="text-lg font-semibold mb-3">Productos</h2>
+
+  {% if items %}
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+      {% for item in items %}
+        <a href="{% url 'item_detail' item.pk %}" class="block bg-white rounded-xl border overflow-hidden hover:shadow-sm transition">
+          <div class="aspect-square bg-gray-100">
+            <img src="{{ item.photo.url }}" alt="{{ item.title }}" class="w-full h-full object-cover">
+          </div>
+
+          <div class="p-3">
+            <h3 class="font-medium leading-snug">{{ item.title }}</h3>
+            <p class="mt-1 font-semibold">${{ item.price_cop }} COP</p>
+            <p class="text-sm text-gray-600">Talla: {{ item.size }}</p>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="bg-white border rounded-xl p-6">
+      <p class="text-gray-600">Esta tienda aún no tiene productos publicados.</p>
+    </div>
+  {% endif %}
+{% endblock %}
