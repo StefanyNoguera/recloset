@@ -34,10 +34,10 @@ def home(request):
         items = items.filter(size__iexact=size)
 
     if min_price.isdigit():
-        items = items.filter(price_cop__gte=int(min_price))
+        items = items.filter(price__gte=int(min_price))
 
     if max_price.isdigit():
-        items = items.filter(price_cop__lte=int(max_price))
+        items = items.filter(price__lte=int(max_price))
 
     context = {
         "items": items,
@@ -50,7 +50,7 @@ def home(request):
         "category_choices": Item.Category.choices,
         "condition_choices": Item.Condition.choices,
     }
-    
+
     return render(request, "market/home.html", context)
 
 
