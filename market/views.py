@@ -1,6 +1,8 @@
 from django.db.models import Q, F
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+
 from .models import Item, Store
 
 def home(request):
@@ -71,3 +73,13 @@ def whatsapp_redirect(request, pk):
 
     whatsapp_link = item.whatsapp_url(request=request)
     return HttpResponseRedirect(whatsapp_link)
+
+@login_required
+def my_store(request):
+    store = getattr(request.user, "store", None)
+
+    if store is None:
+        return render(request, "market/my_store_no_profile.html")
+
+    items = store.items.order_by("-created_at")
+    return render(request, "market/my_store.html", {"store": store, "items": items})
