@@ -43,6 +43,7 @@ class Item(models.Model):
     photo = models.ImageField(upload_to="items/")
     is_available = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    whatsapp_clicks = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return f"{self.title} — {self.store.name}"
