@@ -1,5 +1,6 @@
-from django.db.models import Q
+from django.db.models import Q, F
 from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect
 from .models import Item, Store
 
 def home(request):
@@ -53,7 +54,6 @@ def home(request):
 
     return render(request, "market/home.html", context)
 
-
 def item_detail(request, pk):
     item = get_object_or_404(Item, pk=pk, is_available=True)
     whatsapp_link = item.whatsapp_url(request=request)
@@ -63,3 +63,11 @@ def store_detail(request, pk):
     store = get_object_or_404(Store, pk=pk, approved=True)
     items = store.items.filter(is_available=True).order_by("-created_at")
     return render(request, "market/store_detail.html", {"store": store, "items": items})
+
+def whatsapp_redirect(request, pk):
+    item = get_object_or_404(Item, pk=pk, is_available=True)
+
+    Item.objects.filter(pk=item.pk).update(whatsapp_click=F("whatsapp_clicks") + 1)
+
+    whatsapp_link = item.whatsapp_url(request=request)
+    return HttpResponseRedirect(whatsapp_link)
