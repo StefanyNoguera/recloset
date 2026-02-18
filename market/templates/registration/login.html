@@ -1,0 +1,38 @@
+{% extends "market/base.html" %}
+
+{% block title %}Iniciar sesión - Recloset{% endblock %}
+
+{% block content %}
+  <div class="max-w-md mx-auto bg-white border rounded-2xl p-6">
+    <h1 class="text-2xl font-semibold">Iniciar sesión</h1>
+    <p class="text-gray-600 mt-1">Accede para gestionar tu inventario.</p>
+
+    {% if form.errors %}
+      <div class="mt-4 bg-red-50 border border-red-200 rounded-xl p-3 text-sm text-red-700">
+        Por favor revisa tu usuario y contraseña.
+      </div>
+    {% endif %}
+
+    <form method="post" class="mt-5 space-y-4">
+      {% csrf_token %}
+
+      <div>
+        <label class="text-sm text-gray-600">Usuario</label>
+        <input type="text" name="username" autofocus required class="mt-1 w-full rounded-xl border px-3 py-2">
+      </div>
+
+      <div>
+        <label class="text-sm text-gray-600">Contraseña</label>
+        <input type="password" name="password" required class="mt-1 w-full rounded-xl border px-3 py-2">
+      </div>
+
+      <button class="w-full rounded-xl bg-gray-900 text-white font-medium py-3 hover:opacity-90 transition">
+        Entrar
+      </button>
+    </form>
+
+    <p class="mt-4 text-sm text-gray-600">
+      ¿Aún no tienes cuenta? (Lo agregaremos pronto)
+    </p>
+  </div>
+{% endblock %}
