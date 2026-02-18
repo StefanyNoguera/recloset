@@ -67,7 +67,7 @@ def store_detail(request, pk):
 def whatsapp_redirect(request, pk):
     item = get_object_or_404(Item, pk=pk, is_available=True)
 
-    Item.objects.filter(pk=item.pk).update(whatsapp_click=F("whatsapp_clicks") + 1)
+    Item.objects.filter(pk=item.pk).update(whatsapp_clicks=F("whatsapp_clicks") + 1)
 
     whatsapp_link = item.whatsapp_url(request=request)
     return HttpResponseRedirect(whatsapp_link)
