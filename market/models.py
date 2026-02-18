@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 
 class Store(models.Model):
     name = models.CharField(max_length=120)
@@ -13,6 +14,11 @@ class Store(models.Model):
 
     def __str__(self):
         return self.name
+
+    def total_whatsapp_clicks(self):
+        total = self.items.aggregate(total=Sum("whatsapp_clicks"))["total"]
+        return total or 0
+
 
 class Item(models.Model):
     class Category(models.TextChoices):
