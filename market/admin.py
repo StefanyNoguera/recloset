@@ -4,7 +4,7 @@ from .models import Store, Item
 
 @admin.register(Store)
 class StoreAdmin(admin.ModelAdmin):
-    list_display = ("name", "city", "whatsapp_number", "approved", "created_at")
+    list_display = ("name", "city", "whatsapp_number", "approved", "total_whatsapp_clicks", "created_at")
     list_filter = ("approved", "city")
     search_fields = ("name", "city", "whatsapp_number", "instagram_handle")
 
