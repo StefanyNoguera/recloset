@@ -10,7 +10,14 @@
   <header class="bg-white border-b">
     <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
       <a href="{% url 'home' %}" class="text-xl font-semibold">Recloset</a>
-      <a href="/admin/" class="text-sm text-gray-600 hover:text-gray-900">Admin</a>
+      <div class="flex items-center gap-4">
+        {% if user.is_authenticated %}
+          <a href="{% url 'my_store' %}" class="text-sm text-gray-600 hover:text-gray-900">Mi tienda</a>
+          <a href="{% url 'logout' %}" class="text-sm text-gray-600 hover:text-gray-900">Cerrar sesión</a>
+        {% else %}
+          <a href="{% url 'login' %}" class="text-sm text-gray-600 hover:text-gray-900">Iniciar sesión</a>
+        {% endif %}
+      </div>
     </div>
   </header>
 
