@@ -1,7 +1,8 @@
 from django.db.models import Q, F
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from .forms import StoreProfileForm
 
 from .models import Item, Store
 
@@ -83,3 +84,21 @@ def my_store(request):
 
     items = store.items.order_by("-created_at")
     return render(request, "market/my_store.html", {"store": store, "items": items})
+
+@login_required
+def create_store_profile(request):
+    if getattr(request.user, "store", None) is not None:
+        return redirect("my_store")
+
+    if request.method == "POST":
+        form = StoreProfileForm(request.POST)
+        if form.is_valid():
+            store = form.save(commit=False)
+            store.owner = request.user
+            store.approved = True
+            store.save()
+            return redirect("my_store")
+        else:
+            form = StoreProfileForm()
+
+        return render(request, "market/create_store_profile.html", {"form": form})
