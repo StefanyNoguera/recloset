@@ -98,7 +98,7 @@ def create_store_profile(request):
             store.approved = True
             store.save()
             return redirect("my_store")
-        else:
-            form = StoreProfileForm()
+    else:
+        form = StoreProfileForm()
 
-        return render(request, "market/create_store_profile.html", {"form": form})
+    return render(request, "market/create_store_profile.html", {"form": form})
