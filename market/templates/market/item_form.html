@@ -1,0 +1,46 @@
+{% extends "market/base.html" %}
+
+{% block title %}{{ page_title }} - Recloset{% endblock %}
+
+{% block content %}
+  <div class="max-w-xl mx-auto">
+    <div class="mb-4">
+      <a href="{% url 'my_store' %}" class="text-sm text-gray-600 hover:text-gray-900">← Volver a Mi tienda</a>
+    </div>
+
+    <div class="bg-white border rounded-2xl p-6">
+      <h1 class="text-2xl font-semibold">{{ page_title }}</h1>
+      <p class="text-gray-600 mt-1">Completa la información para que la gente te escriba por WhatsApp.</p>
+
+      <form method="post" enctype="multipart/form-data" class="mt-6 space-y-4">
+        {% csrf_token %}
+
+        {% for field in form %}
+          <div>
+            <label class="text-sm text-gray-600">{{ field.label }}</label>
+
+            <div class="mt-1">
+              {% if field.field.widget.input_type == "select" or field.field.widget.input_type == None %}
+                {{ field }}
+              {% else %}
+                {{ field }}
+              {% endif %}
+            </div>
+
+            {% if field.help_text %}
+              <p class="text-xs text-gray-500 mt-1">{{ field.help_text }}</p>
+            {% endif %}
+
+            {% if field.errors %}
+              <p class="text-sm text-red-700 mt-1">{{ field.errors|striptags }}</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+
+        <button class="w-full rounded-xl bg-gray-900 text-white font-medium py-3 hover:opacity-90 transition">
+          {{ submit_label }}
+        </button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
