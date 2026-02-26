@@ -31,18 +31,39 @@
   </div>
 
   {% if items %}
-    <div class="space-y-3">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
       {% for item in items %}
-        <div class="bg-white border rounded-xl p-4 flex items-center justify-between gap-4">
-          <div>
-            <p class="font-medium">{{ item.title }}</p>
-            <p class="text-sm text-gray-600">
-              ${{ item.price }} COP · Talla {{ item.size }} · {{ item.get_category_display }}
-              {% if not item.is_available %} · <span class="text-red-600">No disponible</span>{% endif %}
-            </p>
-            <p class="text-xs text-gray-500 mt-1">Clics WhatsApp: {{ item.whatsapp_clicks }}</p>
-          </div>
-          <a href="{% url 'item_detail' item.pk %}" class="text-sm text-gray-600 hover:text-gray-900">Ver</a>
+        <div class="bg-white border rounded-xl overflow-hidden">
+          <a href="{% url 'item_detail' item.pk %}" class="block">
+            <div class="aspect-square bg-gray-100">
+              {% if item.photo %}
+                <img src="{{ item.photo.url }}" alt="{{ item.title }}" class="w-full h-full object-cover">
+              {% else %}
+                <div class="w-full h-full flex items-center justify-center text-gray-400 text-sm">Sin foto</div>
+              {% endif %}
+            </div>
+
+            <div class="p-3">
+              <h3 class="font-medium leading-snug">{{ item.title }}</h3>
+
+              <p class="mt-1 font-semibold">
+                {% if item.price %}
+                  ${{ item.price }} COP
+                {% else %}
+                  Precio no definido
+                {% endif %}
+              </p>
+
+              <p class="text-sm text-gray-600">Talla: {{ item.size }}</p>
+              <p class="text-xs text-gray-500 mt-1">{{ item.get_category_display }}</p>
+
+              {% if not item.is_available %}
+                <p class="text-xs text-red-600 mt-2">No disponible</p>
+              {% endif %}
+
+              <p class="text-xs text-gray-500 mt-2">Clics WhatsApp: {{ item.whatsapp_clicks }}</p>
+            </div>
+          </a>
         </div>
       {% endfor %}
     </div>
