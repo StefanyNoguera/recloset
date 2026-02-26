@@ -21,8 +21,13 @@
 
   <div class="flex items-center justify-between mb-3">
     <h2 class="text-lg font-semibold">Productos</h2>
-    <!-- Add item button will come next -->
-    <span class="text-sm text-gray-600">Total: {{ items|length }}</span>
+    <div class="flex items-center gap-3">
+      <span class="text-sm text-gray-600">Total: {{ items|length }}</span>
+      <a href="{% url 'item_create' %}"
+        class="inline-flex items-center justify-center rounded-xl bg-gray-900 text-white font-medium px-4 py-2 hover:opacity-90 transition">
+        Agregar producto
+      </a>
+    </div>
   </div>
 
   {% if items %}
