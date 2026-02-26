@@ -27,7 +27,7 @@ class StoreProfileForm(forms.ModelForm):
 class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
-        fields = ["title", "description", "price", "size", "category", "condition", "photo", "is_available"]
+        fields = ["title", "description", "price_cop", "size", "category", "condition", "photo", "is_available"]
         labels = {
             "title": "Título",
             "description": "Descripción (opcional)",
@@ -38,8 +38,34 @@ class ItemForm(forms.ModelForm):
             "photo": "Foto",
             "is_available": "Disponible",
         }
-
         help_texts = {
             "price_cop": "Solo números. Ej: 45000",
             "size": "Ej: S, M, L, 28, 40, Única",
+        }
+        widgets = {
+            "title": forms.TextInput(attrs={
+                "class": "w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-900"
+            }),
+            "description": forms.Textarea(attrs={
+                "class": "w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-900",
+                "rows": 3
+            }),
+            "price_cop": forms.NumberInput(attrs={
+                "class": "w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-900"
+            }),
+            "size": forms.TextInput(attrs={
+                "class": "w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-900"
+            }),
+            "category": forms.Select(attrs={
+                "class": "w-full rounded-xl border border-gray-300 px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-gray-900"
+            }),
+            "condition": forms.Select(attrs={
+                "class": "w-full rounded-xl border border-gray-300 px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-gray-900"
+            }),
+            "photo": forms.ClearableFileInput(attrs={
+                "class": "w-full text-sm"
+            }),
+            "is_available": forms.CheckboxInput(attrs={
+                "class": "h-4 w-4"
+            }),
         }
