@@ -2,7 +2,7 @@ from django.db.models import Q, F
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from .forms import StoreProfileForm
+from .forms import StoreProfileForm, ItemForm
 
 from .models import Item, Store
 
@@ -102,3 +102,28 @@ def create_store_profile(request):
         form = StoreProfileForm()
 
     return render(request, "market/create_store_profile.html", {"form": form})
+
+def _get_user_store(user):
+    return getattr(user, "store", None)
+
+@login_required
+def item_create(request):
+    store = _get_user_store(request.user)
+    if store is None:
+        return redirect("my_store")
+
+    if request.method == "POST":
+        form = ItemForm(request.POST, request.FILES)
+        if form.is_valid():
+            item = form.save(commit=False)
+            item.store = store
+            item.save()
+            return redirect("my_store")
+    else:
+        form = ItemForm(initial={"is_available": True})
+
+    return render(request, "market/item_form.html", {
+        "form": form,
+        "page_title": "Agregar producto",
+        "submit_label": "Publicar producto",
+    })
