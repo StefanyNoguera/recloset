@@ -37,7 +37,7 @@
           <div>
             <p class="font-medium">{{ item.title }}</p>
             <p class="text-sm text-gray-600">
-              ${{ item.price_cop }} COP · Talla {{ item.size }} · {{ item.get_category_display }}
+              ${{ item.price }} COP · Talla {{ item.size }} · {{ item.get_category_display }}
               {% if not item.is_available %} · <span class="text-red-600">No disponible</span>{% endif %}
             </p>
             <p class="text-xs text-gray-500 mt-1">Clics WhatsApp: {{ item.whatsapp_clicks }}</p>
