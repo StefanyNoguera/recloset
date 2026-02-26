@@ -20,13 +20,9 @@
             <label class="text-sm text-gray-600">{{ field.label }}</label>
 
             <div class="mt-1">
-              {% if field.field.widget.input_type == "select" or field.field.widget.input_type == None %}
-                {{ field }}
-              {% else %}
-                {{ field }}
-              {% endif %}
+              {{ field }}
             </div>
-
+            
             {% if field.help_text %}
               <p class="text-xs text-gray-500 mt-1">{{ field.help_text }}</p>
             {% endif %}
