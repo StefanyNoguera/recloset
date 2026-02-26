@@ -1,5 +1,5 @@
 from django import forms
-from .models import Store
+from .models import Store, Item
 
 class StoreProfileForm(forms.ModelForm):
     class Meta:
@@ -23,3 +23,23 @@ class StoreProfileForm(forms.ModelForm):
         if len(value) < 11:
             raise forms.ValidationError("El número parece muy corto. Revisa que esté completo.")
         return value
+
+class ItemForm(forms.ModelForm):
+    class Meta:
+        model = Item
+        fields = ["title", "description", "price", "size", "category", "condition", "photo", "is_available"]
+        labels = {
+            "title": "Título",
+            "description": "Descripción (opcional)",
+            "price_cop": "Precio (COP)",
+            "size": "Talla",
+            "category": "Categoría",
+            "condition": "Condición",
+            "photo": "Foto",
+            "is_available": "Disponible",
+        }
+
+        help_texts = {
+            "price_cop": "Solo números. Ej: 45000",
+            "size": "Ej: S, M, L, 28, 40, Única",
+        }
