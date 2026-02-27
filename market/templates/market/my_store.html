@@ -65,6 +65,7 @@
 
               <div class="mt-3 flex items-center gap-3">
                 <a href="{% url 'item_update' item.pk %}" class="text-sm text-gray-700 hover:underline">Editar</a>
+                <a href="{% url 'item_delete' item.pk %}" class="text-sm text-red-700 hover:underline">Eliminar</a>
                 <a href="{% url 'item_detail' item.pk %}" class="text-sm text-gray-700 hover:underline">Ver publicación</a>
               </div>
             </div>
