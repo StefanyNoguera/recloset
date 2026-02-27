@@ -127,3 +127,25 @@ def item_create(request):
         "page_title": "Agregar producto",
         "submit_label": "Publicar producto",
     })
+
+@login_required
+def item_update(request, pk):
+    store = _get_user_store(request.user)
+    if store is None:
+        return redirect("my_store")
+
+    item = get_object_or_404(Item, pk=pk, store=store)
+
+    if request.method == "POST":
+        form = ItemForm(request.POST, request.FILES, instance=item)
+        if form.is_valid():
+            form.save()
+            return redirect("my_store")
+    else:
+        form = ItemForm(instance=item)
+
+    return render(request, "market/item_form.html", {
+        "form": form,
+        "page_title": "Editar producto",
+        "submit_label": "Guardar cambios",
+    })
