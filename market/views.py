@@ -149,3 +149,18 @@ def item_update(request, pk):
         "page_title": "Editar producto",
         "submit_label": "Guardar cambios",
     })
+
+@login_required
+def item_delete(request, pk):
+    store = _get_user_store(request.user)
+    if store is None:
+        return redirect("my_store")
+
+    item = get_object_or_404(Item, pk=pk, store=store)
+
+    if request.method == "POST":
+        item.delete()
+        return redirect("my_store")
+
+    return render(request, "market/item_confirm_delete.html", {"item": item})
+
