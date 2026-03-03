@@ -164,3 +164,15 @@ def item_delete(request, pk):
 
     return render(request, "market/item_confirm_delete.html", {"item": item})
 
+@login_required
+def item_toggle_availability(request, pk):
+    store = _get_user_store(request.user)
+    if store is None:
+        return redirect("my_store")
+
+    item = get_object_or_404(Item, pk=pk, store=store)
+
+    if request.method == "POST":
+        item.is_available = not item.is_available
+        item.save(update_fields=["is_available"])
+    return redirect("my_store")
