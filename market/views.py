@@ -65,6 +65,9 @@ def item_detail(request, pk):
 
 def store_detail(request, pk):
     store = get_object_or_404(Store, pk=pk, approved=True)
+    if store.owner:
+        return redirect("store_detail_username", username=store.owner.username)
+
     items = store.items.filter(is_available=True).order_by("-created_at")
     return render(request, "market/store_detail.html", {"store": store, "items": items})
 
