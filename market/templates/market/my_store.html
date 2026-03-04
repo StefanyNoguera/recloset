@@ -67,6 +67,14 @@
                 <a href="{% url 'item_update' item.pk %}" class="text-sm text-gray-700 hover:underline">Editar</a>
                 <a href="{% url 'item_delete' item.pk %}" class="text-sm text-red-700 hover:underline">Eliminar</a>
                 <a href="{% url 'item_detail' item.pk %}" class="text-sm text-gray-700 hover:underline">Ver publicación</a>
+                <form method="post" action="{% url 'item_toggle_availability' item.pk %}">
+                  {% csrf_token %}
+                  {% if item.is_available %}
+                    <button class="text-sm text-gray-700 hover:underline" type="submit">Marcar como no disponible</button>
+                  {% else %}
+                    <button class="text-sm text-gray-700 hover:underline" type="submit">Marcar como disponible</button>
+                  {% endif %}
+                </form>
               </div>
             </div>
           </a>
