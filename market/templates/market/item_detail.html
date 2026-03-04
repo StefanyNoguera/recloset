@@ -48,7 +48,15 @@
 
       <div class="mt-6 bg-white border rounded-xl p-4">
         <p class="text-sm text-gray-500">Tienda</p>
-        <a href="{% url 'store_detail' item.store.pk %}" class="font-medium hover:underline">
+        {% if item.store.owner %}
+          <a href="{% url 'store_detail_username' item.store.owner.username %}" class="font-medium hover:underline">
+            {{ item.store.name }}
+          </a>
+        {% else %}
+          <a href="{% url 'store_detail' item.store.pk %}" class="font-medium hover:underline">
+            {{ item.store.name }}
+          </a>
+        {% endif %}
           {{ item.store.name }}
         </a>
         {% if item.store.city %}<p class="text-sm text-gray-600">{{ item.store.city }}</p>{% endif %}
