@@ -2,8 +2,7 @@ from django.db.models import Q, F
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from .forms import StoreProfileForm, ItemForm
-from django.contrib.auth.forms import UserCreationForm
+from .forms import StoreProfileForm, ItemForm, SignupForm
 from django.contrib.auth import login
 
 from .models import Item, Store
@@ -184,12 +183,12 @@ def signup(request):
         return redirect("my_store")
 
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = SignupForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
             return redirect("my_store")
     else:
-        form = UserCreationForm()
+        form = SignupForm()
 
     return render(request, "market/signup.html", {"form": form})
