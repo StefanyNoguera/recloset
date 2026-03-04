@@ -3,6 +3,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .forms import StoreProfileForm, ItemForm
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 
 from .models import Item, Store
 
@@ -176,3 +178,18 @@ def item_toggle_availability(request, pk):
         item.is_available = not item.is_available
         item.save(update_fields=["is_available"])
     return redirect("my_store")
+
+def signup(request):
+    if request.user.is_authenticated:
+        return redirect("my_store")
+
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect("my_store")
+    else:
+        form = UserCreationForm()
+
+    return render(request, "market/signup.html", {"form": form})
