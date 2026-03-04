@@ -1,0 +1,38 @@
+{% extends "market/base.html" %}
+
+{% block title %}Crear cuenta - Recloset{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white border rounded-2xl p-6">
+
+  <h1 class="text-2xl font-semibold">Crear cuenta</h1>
+  <p class="text-gray-600 mt-1">Crea una cuenta para publicar productos.</p>
+
+  <form method="post" class="mt-6 space-y-4">
+    {% csrf_token %}
+
+    {% for field in form %}
+      <div>
+        <label class="text-sm text-gray-600">{{ field.label }}</label>
+        <div class="mt-1">
+          {{ field }}
+        </div>
+        {% if field.errors %}
+          <p class="text-sm text-red-600 mt-1">{{ field.errors }}</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <button class="w-full rounded-xl bg-gray-900 text-white py-3 font-medium hover:opacity-90 transition">
+      Crear cuenta
+    </button>
+
+  </form>
+
+  <p class="mt-4 text-sm text-gray-600">
+    ¿Ya tienes cuenta?
+    <a href="{% url 'login' %}" class="underline">Inicia sesión</a>
+  </p>
+
+</div>
+{% endblock %}
