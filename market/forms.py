@@ -5,9 +5,8 @@ from django.contrib.auth.forms import UserCreationForm
 class StoreProfileForm(forms.ModelForm):
     class Meta:
         model = Store
-        fields = ["name", "city", "whatsapp_number", "instagram_handle"]
+        fields = ["city", "whatsapp_number", "instagram_handle"]
         labels = {
-            "name": "Nombre de la tienda",
             "city": "Ciudad",
             "whatsapp_number": "Número de Whatsapp",
             "instagram_handle": "Usuario de Instagram"
