@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 
 
 class Store(models.Model):
-    name = models.CharField(max_length=120)
     city = models.CharField(max_length=80)
     whatsapp_number = models.CharField(
         max_length=20,
@@ -17,7 +16,9 @@ class Store(models.Model):
 
 
     def __str__(self):
-        return self.name
+        if self.owner:
+            return f"@{self.owner.username}"
+        return "Store"
 
     def total_whatsapp_clicks(self):
         total = self.items.aggregate(total=Sum("whatsapp_clicks"))["total"]
