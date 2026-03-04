@@ -47,7 +47,6 @@
       {% endif %}
 
       <div class="mt-6 bg-white border rounded-xl p-4">
-        <p class="text-sm text-gray-500">Tienda</p>
         {% if item.store.owner %}
           <a href="{% url 'store_detail_username' item.store.owner.username %}" class="font-medium hover:underline">
             {{ item.store.owner.username }}
@@ -57,7 +56,6 @@
             {{ item.store.owner.username }}
           </a>
         {% endif %}
-          {{ item.store.owner.username }}
         </a>
         {% if item.store.city %}<p class="text-sm text-gray-600">{{ item.store.city }}</p>{% endif %}
 
