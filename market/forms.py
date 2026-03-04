@@ -1,5 +1,6 @@
 from django import forms
-from .models import Store, Item
+from .models import Store, Item, User
+from django.contrib.auth.forms import UserCreationForm
 
 class StoreProfileForm(forms.ModelForm):
     class Meta:
@@ -69,3 +70,27 @@ class ItemForm(forms.ModelForm):
                 "class": "h-4 w-4"
             }),
         }
+
+
+class SignupForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ("username", "password1", "password2")
+
+        widgets = {
+            "username": forms.TextInput(attrs={
+                "class": "w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-900"
+            }),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields["username"].label = "Usuario"
+        self.fields["password1"].label = "Contraseña"
+        self.fields["password2"].label = "Confirmar contraseña"
+
+        for field in self.fields.values():
+            field.widget.attrs.update({
+                "class": "w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-900"
+            })
