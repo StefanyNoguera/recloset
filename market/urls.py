@@ -1,10 +1,11 @@
 from django.urls import path
-from .views import home, item_detail, store_detail, whatsapp_redirect, my_store, create_store_profile, item_create, item_update, item_delete, item_toggle_availability, signup
+from .views import home, item_detail, store_detail, whatsapp_redirect, my_store, create_store_profile, item_create, item_update, item_delete, item_toggle_availability, signup, store_detail_by_username
 
 urlpatterns = [
     path("", home, name="home"),
     path("productos/<int:pk>/", item_detail, name="item_detail"),
     path("productos/<int:pk>/whatsapp", whatsapp_redirect, name="whatsapp_redirect"),
+    path("tiendas/<str:username>/", store_detail_by_username, name="store_detail_username"),
     path("tiendas/<int:pk>/", store_detail, name="store_detail"),
     path("mi-tienda/", my_store, name="my_store"),
     path("mi-tienda/crear-perfil/", create_store_profile, name="create_store_profile"),
