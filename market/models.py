@@ -57,7 +57,7 @@ class Item(models.Model):
     whatsapp_clicks = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return f"{self.title} — {self.store.name}"
+        return f"{self.title} — {self.store.owner.username}"
 
     def whatsapp_url(self, request=None):
         import urllib.parse

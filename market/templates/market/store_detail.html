@@ -1,6 +1,6 @@
 {% extends "market/base.html" %}
 
-{% block title %}{{ store.name }} - Recloset{% endblock %}
+{% block title %}{{ store.owner.username }} - Recloset{% endblock %}
 
 {% block content %}
   <div class="mb-4">
@@ -8,7 +8,7 @@
   </div>
 
   <div class="bg-white border rounded-2xl p-5 mb-6">
-    <h1 class="text-2xl font-semibold">{{ store.name }}</h1>
+    <h1 class="text-2xl font-semibold">{{ store.owner.username }}</h1>
     <p class="text-gray-600 mt-1">{{ store.city }}</p>
 
     <div class="mt-4 flex flex-col sm:flex-row gap-3">

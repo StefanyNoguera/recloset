@@ -15,6 +15,6 @@ class StoreAdmin(admin.ModelAdmin):
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ("title", "store", "price_cop", "size", "category", "condition", "is_available", "whatsapp_clicks", "created_at")
+    list_display = ("title", "store", "price", "size", "category", "condition", "is_available", "whatsapp_clicks", "created_at")
     list_filter = ("category", "condition", "is_available", "store")
     search_fields = ("title", "description", "store__owner__username")
