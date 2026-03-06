@@ -204,6 +204,6 @@ def store_detail_by_username(request, username):
 def store_directory(request):
     stores = Store.objects.filter(approved=True).select_related("owner").order_by("owner__username")
 
-    return render(request, "market/store_directory.html"), {
+    return render(request, "market/store_directory.html", {
         "stores": stores
-    }
+    })
