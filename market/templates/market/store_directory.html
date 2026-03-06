@@ -1,0 +1,46 @@
+{% extends "market/base.html" %}
+
+{% block title %}Tiendas - Recloset{% endblock %}
+
+{% block content %}
+
+<h1 class="text-2xl font-semibold mb-6">Tiendas</h1>
+
+{% if stores %}
+
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+
+  {% for store in stores %}
+
+  <a href="{% url 'store_detail_username' store.owner.username %}"
+     class="bg-white border rounded-xl p-4 hover:shadow-sm transition">
+
+    <div class="font-medium text-lg">
+      @{{ store.owner.username }}
+    </div>
+
+    {% if store.city %}
+      <p class="text-sm text-gray-500 mt-1">
+        {{ store.city }}
+      </p>
+    {% endif %}
+
+    <p class="text-xs text-gray-400 mt-2">
+      Ver productos →
+    </p>
+
+  </a>
+
+  {% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="bg-white border rounded-xl p-6">
+  <p class="text-gray-600">Aún no hay tiendas registradas.</p>
+</div>
+
+{% endif %}
+
+{% endblock %}
