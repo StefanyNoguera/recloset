@@ -200,3 +200,10 @@ def store_detail_by_username(request, username):
     store = get_object_or_404(Store, owner__username=username, approved=True)
     items = store.items.filter(is_available=True).order_by("-created_at")
     return render(request, "market/store_detail.html", {"store": store, "items": items})
+
+def store_directory(request):
+    stores = Store.objects.filter(approved=True).select_related("owner").order_by("owner__username")
+
+    return render(request, "market/store_directory.html"), {
+        "stores": stores
+    }
