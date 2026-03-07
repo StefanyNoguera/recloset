@@ -3,9 +3,10 @@
 {% block title %}{{ item.title }} - Recloset{% endblock %}
 
 {% block content %}
-  <div class="mb-4">
-    <a href="{% url 'home' %}" class="text-sm text-gray-600 hover:text-gray-900">← Volver</a>
-  </div>
+  <button onclick="if (document.referrer) { history.back(); } else { window.location.href='/' }"
+          class="text-sm text-gray-600 hover:text-gray-900">
+    ← Volver
+  </button>
 
   <div class="grid md:grid-cols-2 gap-6">
     <div class="bg-white border rounded-2xl overflow-hidden relative">
