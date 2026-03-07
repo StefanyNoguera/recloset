@@ -1,9 +1,16 @@
 from django import forms
-from .models import Store, Item, User
+from django.contrib.auth.models import User
+from .models import Store, Item
 from django.contrib.auth.forms import UserCreationForm
 
 class MultipleFileInput(forms.ClearableFileInput):
     allow_multiple_selected = True
+
+    def __init__(self, attrs=None):
+        if attrs is None:
+            attrs = {}
+        attrs["multiple"] = True
+        super().__init__(attrs)
 
 class MultipleFileField(forms.FileField):
     widget = MultipleFileInput
