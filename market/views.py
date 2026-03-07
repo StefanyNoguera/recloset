@@ -224,3 +224,19 @@ def store_directory(request):
     return render(request, "market/store_directory.html", {
         "stores": stores
     })
+
+@login_required
+def delete_item_image(request, pk):
+    store = _get_user_store(request.user)
+    if store is None:
+        return redirect("my_store")
+
+    image = get_object_or_404(ItemImage, pk=pk)
+
+    if image.item.store != store:
+        return redirect("my_store")
+
+    item_id = image.item.id
+    image.delete()
+
+    return redirect("item_update", pk=item_id)
