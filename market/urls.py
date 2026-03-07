@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home, item_detail, store_detail, whatsapp_redirect, my_store, create_store_profile, item_create, item_update, item_delete, item_toggle_availability, signup, store_detail_by_username, store_directory
+from .views import home, item_detail, store_detail, whatsapp_redirect, my_store, create_store_profile, item_create, item_update, item_delete, item_toggle_availability, signup, store_detail_by_username, store_directory, delete_item_image
 
 urlpatterns = [
     path("", home, name="home"),
@@ -15,4 +15,5 @@ urlpatterns = [
     path("mi-tienda/productos/<int:pk>/eliminar/", item_delete, name="item_delete"),
     path("mi-tienda/productos/<int:pk>/toggle-disponible/", item_toggle_availability, name="item_toggle_availability"),
     path("crear-cuenta/", signup, name="signup"),
+    path("mi-tienda/productos/foto/<int:pk>/eliminar/", delete_item_image, name="delete_item_image"),
 ]
