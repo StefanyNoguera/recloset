@@ -36,6 +36,29 @@
           </div>
         {% endfor %}
 
+        {% if form.instance.pk and form.instance.extra_images.all %}
+          <div class="mt-6">
+            <h3 class="text-sm font-medium mb-3">Fotos adicionales</h3>
+
+            <div class="grid grid-cols-3 gap-3">
+
+              {% for image in form.instance.extra_images.all %}
+              <div class="relative border rounded-lg overflow-hidden">
+
+                <img src="{{ image.image.url }}" class="w-full h-28 object-cover">
+
+                <a href="{% url 'delete_item_image' image.id %}"
+                  class="absolute top-1 right-1 bg-white border rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-50">
+                  ✕
+                </a>
+
+              </div>
+              {% endfor %}
+
+            </div>
+          </div>
+        {% endif %}
+
         <button class="w-full rounded-xl bg-gray-900 text-white font-medium py-3 hover:opacity-90 transition">
           {{ submit_label }}
         </button>
