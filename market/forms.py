@@ -2,6 +2,18 @@ from django import forms
 from .models import Store, Item, User
 from django.contrib.auth.forms import UserCreationForm
 
+class MultipleFileInput(forms.ClearableFileInput):
+    allow_multiple_selected = True
+
+class MultipleFileField(forms.FileField):
+    widget = MultipleFileInput
+
+    def clean(self, data, initial=None):
+        single_file_clean = super().clean
+        if isinstance(data, (list, tuple)):
+            return [single_file_clean(d, initial) for d in data]
+        return single_file_clean(data, initial)
+
 class StoreProfileForm(forms.ModelForm):
     class Meta:
         model = Store
@@ -25,9 +37,8 @@ class StoreProfileForm(forms.ModelForm):
         return value
 
 class ItemForm(forms.ModelForm):
-    extra_photos = forms.FileField(
+    extra_photos = MultipleFileField(
         required=False,
-        widget=forms.FileInput(attrs={"multiple": True}),
         label="Fotos adicionales",
         help_text="Puedes subir varias fotos al mismo tiempo."
     )
