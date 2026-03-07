@@ -23,19 +23,22 @@
         {% endfor %}
 
       </div>
+      
+      {% if item.extra_images.all or item.photo %}
+        <!-- Left arrow -->
+        <button id="prev-image-btn"
+                type="button"
+                class="absolute left-2 top-1/2 -translate-y-1/2 bg-white border rounded-full w-8 h-8 flex items-center justify-center shadow">
+          ‹
+        </button>
 
-      <!-- Left arrow -->
-      <button onclick="prevImage()"
-              class="absolute left-2 top-1/2 -translate-y-1/2 bg-white border rounded-full w-8 h-8 flex items-center justify-center shadow">
-        ‹
-      </button>
-
-      <!-- Right arrow -->
-      <button onclick="nextImage()"
-              class="absolute right-2 top-1/2 -translate-y-1/2 bg-white border rounded-full w-8 h-8 flex items-center justify-center shadow">
-        ›
-      </button>
-
+        <!-- Right arrow -->
+        <button id="next-image-btn"
+                type="button"
+                class="absolute right-2 top-1/2 -translate-y-1/2 bg-white border rounded-full w-8 h-8 flex items-center justify-center shadow">
+          ›
+        </button>
+      {% endif %}
     </div>
 
     <div>
@@ -95,30 +98,38 @@
 {% endblock %}
 
 <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const images = document.querySelectorAll(".carousel-image");
+  const prevBtn = document.getElementById("prev-image-btn");
+  const nextBtn = document.getElementById("next-image-btn");
 
-let currentImage = 0
-const images = document.querySelectorAll(".carousel-image")
+  if (!images.length) return;
 
-function showImage(index) {
+  let currentImage = 0;
 
-  images.forEach(img => img.classList.add("hidden"))
+  function showImage(index) {
+    images.forEach((img) => img.classList.add("hidden"));
+    images[index].classList.remove("hidden");
+  }
 
-  images[index].classList.remove("hidden")
+  function nextImage() {
+    currentImage = (currentImage + 1) % images.length;
+    showImage(currentImage);
+  }
 
-}
+  function prevImage() {
+    currentImage = (currentImage - 1 + images.length) % images.length;
+    showImage(currentImage);
+  }
 
-function nextImage() {
+  if (nextBtn) {
+    nextBtn.addEventListener("click", nextImage);
+  }
 
-  currentImage = (currentImage + 1) % images.length
-  showImage(currentImage)
+  if (prevBtn) {
+    prevBtn.addEventListener("click", prevImage);
+  }
 
-}
-
-function prevImage() {
-
-  currentImage = (currentImage - 1 + images.length) % images.length
-  showImage(currentImage)
-
-}
-
+  showImage(0);
+});
 </script>
