@@ -25,22 +25,30 @@ class StoreProfileForm(forms.ModelForm):
         return value
 
 class ItemForm(forms.ModelForm):
+    extra_photos = forms.FileField(
+        required=False,
+        widget=forms.ClearableFileInput(attrs={"multiple": True}),
+        label="Fotos adicionales",
+        help_text="Puedes subir varias fotos al mismo tiempo."
+    )
+
     class Meta:
         model = Item
-        fields = ["title", "description", "price", "size", "category", "condition", "photo", "is_available"]
+        fields = ["title", "description", "price_cop", "size", "category", "condition", "photo", "is_available"]
         labels = {
             "title": "Título",
             "description": "Descripción (opcional)",
-            "price": "Precio (COP)",
+            "price_cop": "Precio (COP)",
             "size": "Talla",
             "category": "Categoría",
             "condition": "Condición",
-            "photo": "Foto",
+            "photo": "Foto principal",
             "is_available": "Disponible",
         }
         help_texts = {
-            "price": "Solo números. Ej: 45000",
+            "price_cop": "Solo números. Ej: 45000",
             "size": "Ej: S, M, L, 28, 40, Única",
+            "photo": "Esta será la primera foto que verá la gente.",
         }
         widgets = {
             "title": forms.TextInput(attrs={
@@ -50,7 +58,7 @@ class ItemForm(forms.ModelForm):
                 "class": "w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-900",
                 "rows": 3
             }),
-            "price": forms.NumberInput(attrs={
+            "price_cop": forms.NumberInput(attrs={
                 "class": "w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-900"
             }),
             "size": forms.TextInput(attrs={
@@ -70,6 +78,17 @@ class ItemForm(forms.ModelForm):
             }),
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["extra_photos"].widget.attrs.update({
+            "class": "w-full text-sm"
+        })
+
+    def clean_extra_photos(self):
+        files = self.files.getlist("extra_photos")
+        if len(files) > 4:
+            raise forms.ValidationError("Puedes subir máximo 4 fotos adicionales.")
+        return files
 
 class SignupForm(UserCreationForm):
     class Meta:
