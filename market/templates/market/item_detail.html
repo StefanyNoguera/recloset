@@ -3,8 +3,10 @@
 {% block title %}{{ item.title }} - Recloset{% endblock %}
 
 {% block content %}
-  <button onclick="if (document.referrer) { history.back(); } else { window.location.href='/' }"
-          class="text-sm text-gray-600 hover:text-gray-900 mb-4">
+  <button
+    onclick="if (window.history.length > 1) { window.history.back(); } else { window.location.href='/' }"
+    class="text-sm text-gray-600 hover:text-gray-900 mb-4"
+  >
     ← Volver
   </button>
 
