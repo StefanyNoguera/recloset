@@ -52,11 +52,11 @@ class ItemForm(forms.ModelForm):
 
     class Meta:
         model = Item
-        fields = ["title", "description", "price_cop", "size", "category", "condition", "photo", "is_available"]
+        fields = ["title", "description", "price", "size", "category", "condition", "photo", "is_available"]
         labels = {
             "title": "Título",
             "description": "Descripción (opcional)",
-            "price_cop": "Precio (COP)",
+            "price": "Precio (COP)",
             "size": "Talla",
             "category": "Categoría",
             "condition": "Condición",
@@ -64,7 +64,7 @@ class ItemForm(forms.ModelForm):
             "is_available": "Disponible",
         }
         help_texts = {
-            "price_cop": "Solo números. Ej: 45000",
+            "price": "Solo números. Ej: 45000",
             "size": "Ej: S, M, L, 28, 40, Única",
             "photo": "Esta será la primera foto que verá la gente.",
         }
@@ -76,7 +76,7 @@ class ItemForm(forms.ModelForm):
                 "class": "w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-900",
                 "rows": 3
             }),
-            "price_cop": forms.NumberInput(attrs={
+            "price": forms.NumberInput(attrs={
                 "class": "w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-900"
             }),
             "size": forms.TextInput(attrs={
