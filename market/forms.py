@@ -27,7 +27,7 @@ class StoreProfileForm(forms.ModelForm):
 class ItemForm(forms.ModelForm):
     extra_photos = forms.FileField(
         required=False,
-        widget=forms.ClearableFileInput(attrs={"multiple": True}),
+        widget=forms.FileInput(attrs={"multiple": True}),
         label="Fotos adicionales",
         help_text="Puedes subir varias fotos al mismo tiempo."
     )
