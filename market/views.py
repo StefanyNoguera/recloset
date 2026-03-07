@@ -152,7 +152,15 @@ def item_update(request, pk):
     if request.method == "POST":
         form = ItemForm(request.POST, request.FILES, instance=item)
         if form.is_valid():
-            form.save()
+            item = form.save()
+
+            extra_photos = request.FILES.getlist("extra_photos")
+            existing_count = item.extra_images.count()
+
+            if existing_count + len(extra_photos) <= 4:
+                for photo in extra_photos:
+                    ItemImage.objects.create(item=item, image=photo)
+
             return redirect("my_store")
     else:
         form = ItemForm(instance=item)
