@@ -70,3 +70,11 @@ class Item(models.Model):
 
         text = f"Hola! Vi este artículo en Recloset: {self.title}. ¿Está disponible? {item_url}".strip()
         return f"https://wa.me/{phone}?text={urllib.parse.quote(text)}"
+
+class ItemImage(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name="extra_images")
+    image = models.ImageField(upload_to="items/")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Extra image for {self.item.title}"
