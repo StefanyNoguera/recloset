@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Store, Item
+from .models import Store, Item, ItemImage
 
 
 @admin.register(Store)
@@ -18,3 +18,8 @@ class ItemAdmin(admin.ModelAdmin):
     list_display = ("title", "store", "price", "size", "category", "condition", "is_available", "whatsapp_clicks", "created_at")
     list_filter = ("category", "condition", "is_available", "store")
     search_fields = ("title", "description", "store__owner__username")
+
+@admin.register(ItemImage)
+class ItemImageAdmin(admin.ModelAdmin):
+    list_display = ("item", "created_at")
+    search_fields = ("item__title", "item__store__owner__username")
