@@ -108,31 +108,46 @@
   </div>
 
   <script>
+    let currentImage = 0;
+    const images = document.querySelectorAll(".carousel-image");
+    const dots = document.querySelectorAll(".carousel-dot");
+    const prevButton = document.getElementById("prev-button");
+    const nextButton = document.getElementById("next-button");
 
-  let currentImage = 0
-  const images = document.querySelectorAll(".carousel-image")
+    function showImage(index) {
+      images.forEach(img => img.classList.add("hidden"));
+      dots.forEach(dot => {
+        dot.classList.remove("bg-gray-900");
+        dot.classList.add("bg-gray-300");
+      });
 
-  function showImage(index) {
+      images[index].classList.remove("hidden");
+      dots[index].classList.remove("bg-gray-300");
+      dots[index].classList.add("bg-gray-900");
+    }
 
-    images.forEach(img => img.classList.add("hidden"))
+    function nextImage() {
+      currentImage = (currentImage + 1) % images.length;
+      showImage(currentImage);
+    }
 
-    images[index].classList.remove("hidden")
+    function prevImage() {
+      currentImage = (currentImage - 1 + images.length) % images.length;
+      showImage(currentImage);
+    }
 
-  }
+    function goToImage(index) {
+      currentImage = index;
+      showImage(currentImage);
+    }
 
-  function nextImage() {
+    if (images.length <= 1) {
+      prevButton.style.display = "none";
+      nextButton.style.display = "none";
+    }
 
-    currentImage = (currentImage + 1) % images.length
-    showImage(currentImage)
-
-  }
-
-  function prevImage() {
-
-    currentImage = (currentImage - 1 + images.length) % images.length
-    showImage(currentImage)
-
-  }
-
+    if (images.length > 0) {
+      showImage(currentImage);
+    }
   </script>
 {% endblock %}
