@@ -15,30 +15,41 @@
 
       <div class="aspect-square bg-gray-100 flex items-center justify-center">
 
-        <!-- Main image -->
         {% if item.photo %}
           <img src="{{ item.photo.url }}" class="carousel-image w-full h-full object-cover">
         {% endif %}
 
-        <!-- Extra images -->
         {% for extra in item.extra_images.all %}
           <img src="{{ extra.image.url }}" class="carousel-image hidden w-full h-full object-cover">
         {% endfor %}
 
       </div>
 
-      <!-- Left arrow -->
-      <button onclick="prevImage()"
-              class="absolute left-2 top-1/2 -translate-y-1/2 bg-white border rounded-full w-8 h-8 flex items-center justify-center shadow">
+      <button
+        id="prev-button"
+        onclick="prevImage()"
+        class="absolute left-2 top-1/2 -translate-y-1/2 bg-white border rounded-full w-8 h-8 flex items-center justify-center shadow"
+      >
         ‹
       </button>
 
-      <!-- Right arrow -->
-      <button onclick="nextImage()"
-              class="absolute right-2 top-1/2 -translate-y-1/2 bg-white border rounded-full w-8 h-8 flex items-center justify-center shadow">
+      <button
+        id="next-button"
+        onclick="nextImage()"
+        class="absolute right-2 top-1/2 -translate-y-1/2 bg-white border rounded-full w-8 h-8 flex items-center justify-center shadow"
+      >
         ›
       </button>
+    </div>
 
+    <div id="carousel-dots" class="flex items-center justify-center gap-2 mt-3">
+      {% if item.photo %}
+        <button class="carousel-dot w-2.5 h-2.5 rounded-full bg-gray-900" onclick="goToImage(0)"></button>
+      {% endif %}
+
+      {% for extra in item.extra_images.all %}
+        <button class="carousel-dot w-2.5 h-2.5 rounded-full bg-gray-300" onclick="goToImage({{ forloop.counter }})"></button>
+      {% endfor %}
     </div>
 
     <div>
