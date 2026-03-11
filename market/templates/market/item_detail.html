@@ -40,16 +40,16 @@
       >
         ›
       </button>
-    </div>
 
-    <div id="carousel-dots" class="flex items-center justify-center gap-2 mt-3">
-      {% if item.photo %}
-        <button class="carousel-dot w-2.5 h-2.5 rounded-full bg-gray-900" onclick="goToImage(0)"></button>
-      {% endif %}
+      <div id="carousel-dots" class="flex items-center justify-center gap-2 py-2">
+        {% if item.photo %}
+          <button class="carousel-dot w-2.5 h-2.5 rounded-full bg-gray-900" onclick="goToImage(0)"></button>
+        {% endif %}
 
-      {% for extra in item.extra_images.all %}
-        <button class="carousel-dot w-2.5 h-2.5 rounded-full bg-gray-300" onclick="goToImage({{ forloop.counter }})"></button>
-      {% endfor %}
+        {% for extra in item.extra_images.all %}
+          <button class="carousel-dot w-2.5 h-2.5 rounded-full bg-gray-300" onclick="goToImage({% if item.photo %}{{ forloop.counter }}{% else %}{{ forloop.counter0 }}{% endif %})"></button>
+        {% endfor %}
+      </div>
     </div>
 
     <div>
@@ -90,7 +90,6 @@
             {{ item.store.owner.username }}
           </a>
         {% endif %}
-        </a>
         {% if item.store.city %}<p class="text-sm text-gray-600">{{ item.store.city }}</p>{% endif %}
 
         <a href="{% url 'whatsapp_redirect' item.pk %}"
