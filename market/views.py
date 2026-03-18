@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .forms import StoreProfileForm, ItemForm, SignupForm
 from django.contrib.auth import login
+from django.contrib import messages
 
 from .models import Item, Store, ItemImage
 
@@ -163,6 +164,7 @@ def item_update(request, pk):
                 for photo in extra_photos:
                     ItemImage.objects.create(item=item, image=photo)
 
+            messages.success(request, "Los cambios se guardaron correctamente.")
             return redirect("my_store")
     else:
         form = ItemForm(instance=item)
@@ -239,7 +241,7 @@ def delete_item_image(request, pk):
         return redirect("my_store")
 
     item_id = image.item.id
-    
+
     if request.method == "POST":
         image.delete()
 
