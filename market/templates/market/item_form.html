@@ -47,10 +47,16 @@
 
                 <img src="{{ image.image.url }}" class="w-full h-28 object-cover">
 
-                <a href="{% url 'delete_item_image' image.id %}"
-                  class="absolute top-1 right-1 bg-white border rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-50">
-                  ✕
-                </a>
+                <form method="post" action="{% url 'delete_item_image' image.id %}" class="absolute top-1 right-1">
+                  {% csrf_token %}
+                  <button
+                    type="submit"
+                    class="bg-white border rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-50"
+                    aria-label="Eliminar foto"
+                  >
+                    ✕
+                  </button>
+                </form>
 
               </div>
               {% endfor %}

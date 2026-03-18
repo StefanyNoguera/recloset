@@ -239,6 +239,8 @@ def delete_item_image(request, pk):
         return redirect("my_store")
 
     item_id = image.item.id
-    image.delete()
+    
+    if request.method == "POST":
+        image.delete()
 
     return redirect("item_update", pk=item_id)
