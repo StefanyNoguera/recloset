@@ -129,11 +129,11 @@ def item_create(request):
             item = form.save(commit=False)
             item.store = store
             item.save()
-
             extra_photos = request.FILES.getlist("extra_photos")
             for photo in extra_photos:
                 ItemImage.objects.create(item=item, image=photo)
 
+            messages.success(request, "Prenda creada correctamente")
             return redirect("my_store")
     else:
         form = ItemForm(initial={"is_available": True})
