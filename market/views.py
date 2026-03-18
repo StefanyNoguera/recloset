@@ -23,10 +23,12 @@ def home(request):
     max_price = request.GET.get("max_price", "").strip()
 
     if q:
+        normalized_q = q.lstrip("@")
+
         items = items.filter(
             Q(title__icontains=q) |
             Q(description__icontains=q) |
-            Q(store__name__icontains=q)
+            Q(store__owner__username__icontains=normalized_q)
         )
 
     if category:
