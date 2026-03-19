@@ -135,7 +135,7 @@ def item_create(request):
             for photo in extra_photos:
                 ItemImage.objects.create(item=item, image=photo)
 
-            messages.success(request, "Prenda creada correctamente")
+            messages.success(request, "Producto creado correctamente")
             return redirect("my_store")
     else:
         form = ItemForm(initial={"is_available": True})
