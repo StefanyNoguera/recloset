@@ -68,7 +68,7 @@ class Item(models.Model):
         if request is not None:
             item_url = request.build_absolute_uri()
 
-        text = f"Hola! Vi este artículo en Recloset: {self.title}. ¿Está disponible? {item_url}".strip()
+        text = f"Hola, vi esta prenda en Recloset y me interesa: {self.title}. {item_url}".strip()
         return f"https://wa.me/{phone}?text={urllib.parse.quote(text)}"
 
 class ItemImage(models.Model):
