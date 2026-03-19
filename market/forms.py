@@ -109,12 +109,17 @@ class ItemForm(forms.ModelForm):
         return files
 
 class SignupForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+
     class Meta:
         model = User
-        fields = ("username", "password1", "password2")
+        fields = ("username", "email", "password1", "password2")
 
         widgets = {
             "username": forms.TextInput(attrs={
+                "class": "w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-900"
+            }),
+            "email": forms.EmailInput(attrs={
                 "class": "w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-900"
             }),
         }
@@ -123,6 +128,7 @@ class SignupForm(UserCreationForm):
         super().__init__(*args, **kwargs)
 
         self.fields["username"].label = "Usuario"
+        self.fields["email"].label = "Correo electrónico"
         self.fields["password1"].label = "Contraseña"
         self.fields["password2"].label = "Confirmar contraseña"
 
@@ -130,3 +136,11 @@ class SignupForm(UserCreationForm):
             field.widget.attrs.update({
                 "class": "w-full rounded-xl border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-900"
             })
+
+    def clean_email(self):
+        email = self.cleaned_data["email"].strip().lower()
+
+        if User.objects.filter(email__iexact=email).exists():
+            raise forms.ValidationError("Ya existe una cuenta con este correo.")
+
+        return email
