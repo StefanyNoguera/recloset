@@ -1,6 +1,6 @@
 from django.db.models import Q, F
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.contrib.auth.decorators import login_required
 from .forms import StoreProfileForm, ItemForm, SignupForm
 from django.contrib.auth import login
@@ -65,8 +65,12 @@ def item_detail(request, pk):
     item = get_object_or_404(
         Item.objects.select_related("store", "store__owner").prefetch_related("extra_images"),
         pk=pk,
-        is_available=True
     )
+    is_owner = request.user.is_authenticated and item.store.owner == request.user
+
+    if not item.is_available and not is_owner:
+        raise Http404("Item not found")
+
     whatsapp_link = item.whatsapp_url(request=request)
     return render(request, "market/item_detail.html", {"item": item, "whatsapp_link": whatsapp_link})
 
@@ -202,6 +206,12 @@ def item_toggle_availability(request, pk):
     if request.method == "POST":
         item.is_available = not item.is_available
         item.save(update_fields=["is_available"])
+
+        if item.is_available:
+            messages.success(request, "La prenda ahora está disponible.")
+        else:
+            messages.success(request, "La prenda ahora no está disponible.")
+
     return redirect("my_store")
 
 def signup(request):
