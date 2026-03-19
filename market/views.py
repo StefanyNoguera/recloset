@@ -108,6 +108,8 @@ def create_store_profile(request):
             store.owner = request.user
             store.approved = True
             store.save()
+
+            messages.success(request, "Tu tienda fue creada correctamente")
             return redirect("my_store")
     else:
         form = StoreProfileForm()
