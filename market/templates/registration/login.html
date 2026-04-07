@@ -35,5 +35,11 @@
       ¿Aún no tienes cuenta?
       <a href="{% url 'signup' %}" class="underline">Crear cuenta</a>
     </p>
+
+    <p class="text-sm mt-4">
+      <a href="{% url 'password_reset' %}" class="text-gray-600 hover:text-gray-900 underline">
+        ¿Olvidaste tu contraseña?
+      </a>
+    </p>
   </div>
 {% endblock %}
