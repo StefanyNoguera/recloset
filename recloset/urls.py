@@ -16,14 +16,26 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
 from django.contrib.auth import views as auth_views
-
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
+
+    # Login / Logout
+    path(
+        "cuentas/iniciar-sesion/",
+        auth_views.LoginView.as_view(template_name="registration/login.html"),
+        name="login",
+    ),
+    path(
+        "cuentas/cerrar-sesion/",
+        auth_views.LogoutView.as_view(),
+        name="logout",
+    ),
+
+    # Password reset flow
     path(
         "cuentas/recuperar/",
         auth_views.PasswordResetView.as_view(
@@ -54,13 +66,7 @@ urlpatterns = [
         ),
         name="password_reset_complete",
     ),
-    path(
-        "cuentas/reset/completo/",
-        auth_views.PasswordResetCompleteView.as_view(
-            template_name="registration/password_reset_complete.html",
-        ),
-        name="password_reset_complete",
-    ),
+
     path("", include("market.urls")),
 ]
 
