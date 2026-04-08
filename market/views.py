@@ -106,7 +106,7 @@ def create_store_profile(request):
         return redirect("my_store")
 
     if request.method == "POST":
-        form = StoreProfileForm(request.POST)
+        form = StoreProfileForm(request.POST, request.FILES)
         if form.is_valid():
             store = form.save(commit=False)
             store.owner = request.user
