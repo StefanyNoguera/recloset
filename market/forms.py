@@ -28,11 +28,13 @@ class StoreProfileForm(forms.ModelForm):
         labels = {
             "city": "Ciudad",
             "whatsapp_number": "Número de Whatsapp",
-            "instagram_handle": "Usuario de Instagram"
+            "instagram_handle": "Usuario de Instagram",
+            "profile_image": "Foto de perfil"
         }
         help_texts = {
             "whatsapp_number": "Solo dígitos, con código de país. Ej: 573001234567",
-            "instagram_handle": "Sin @. Ej: recloset_co"
+            "instagram_handle": "Sin @. Ej: recloset_co",
+            "profile_image": "Opcional"
         }
 
     def clean_whatsapp_number(self):
