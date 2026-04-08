@@ -13,19 +13,35 @@
   {% for store in stores %}
 
   <a href="{% url 'store_detail_username' store.owner.username %}"
-     class="bg-white border rounded-xl p-4 hover:shadow-sm transition">
+    class="bg-white border rounded-xl p-4 hover:shadow-sm transition">
 
-    <div class="font-medium text-lg">
-      @{{ store.owner.username }}
+    <div class="flex items-center gap-3">
+      {% if store.profile_image %}
+        <img
+          src="{{ store.profile_image.url }}"
+          alt="Foto de {{ store.owner.username }}"
+          class="w-12 h-12 rounded-full object-cover border"
+        >
+      {% else %}
+        <div class="w-12 h-12 rounded-full bg-gray-100 border flex items-center justify-center text-xs text-gray-500">
+          Sin foto
+        </div>
+      {% endif %}
+
+      <div>
+        <div class="font-medium text-lg">
+          @{{ store.owner.username }}
+        </div>
+
+        {% if store.city %}
+          <p class="text-sm text-gray-500">
+            {{ store.city }}
+          </p>
+        {% endif %}
+      </div>
     </div>
 
-    {% if store.city %}
-      <p class="text-sm text-gray-500 mt-1">
-        {{ store.city }}
-      </p>
-    {% endif %}
-
-    <p class="text-xs text-gray-400 mt-2">
+    <p class="text-xs text-gray-400 mt-3">
       Ver productos →
     </p>
 
