@@ -24,7 +24,7 @@ class MultipleFileField(forms.FileField):
 class StoreProfileForm(forms.ModelForm):
     class Meta:
         model = Store
-        fields = ["city", "whatsapp_number", "instagram_handle"]
+        fields = ["city", "whatsapp_number", "instagram_handle", "profile_image"]
         labels = {
             "city": "Ciudad",
             "whatsapp_number": "Número de Whatsapp",
