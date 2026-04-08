@@ -5,7 +5,7 @@
 {% block content %}
   <div class="max-w-xl mx-auto">
     <div class="mb-4">
-      <a href="javascript:history.back()" class="text-sm text-gray-600 hover:text-gray-900">← Volver a Mi tienda</a>
+      <a href="{% url 'my_store' %}" class="text-sm text-gray-600 hover:text-gray-900">← Volver a Mi tienda</a>
     </div>
 
     <div class="bg-white border rounded-2xl p-6">
@@ -48,15 +48,15 @@
                 <img src="{{ image.image.url }}" class="w-full h-28 object-cover">
 
                 <button
-                  type="submit"
-                  formaction="{% url 'delete_item_image' image.id %}"
-                  formmethod="post"
-                  formnovalidate
-                  class="absolute top-1 right-1 bg-white border rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-50"
-                  aria-label="Eliminar foto"
-                >
-                  ✕
-                </button>
+                type="submit"
+                formaction="{% url 'delete_item_image' image.id %}"
+                formmethod="post"
+                formnovalidate
+                class="absolute top-1 right-1 bg-white border rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-50"
+                aria-label="Eliminar foto"
+              >
+                ✕
+              </button>
 
               </div>
               {% endfor %}
