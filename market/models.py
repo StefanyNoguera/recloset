@@ -10,6 +10,7 @@ class Store(models.Model):
         help_text="Use dolo digitos, incluya prefijo internacional. Ejemplo: 573001234567"
     )
     instagram_handle = models.CharField(max_length=50)
+    profile_image = models.ImageField(upload_to="stores/", blank=True, null=True)
     approved = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     owner = models.OneToOneField(User, on_delete=models.CASCADE, related_name="store", null=True, blank=True)
