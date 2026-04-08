@@ -18,30 +18,35 @@
         </div>
       {% endif %}
 
-      <form method="post" class="mt-6 space-y-4">
+      <form method="post" enctype="multipart/form-data" class="mt-6 space-y-4">
         {% csrf_token %}
 
-        {% for field in form %}
-          <div>
-            <label class="text-sm text-gray-600">{{ field.label }}</label>
-            <div class="mt-1">
+      {% for field in form %}
+        <div>
+          <label class="text-sm text-gray-600">{{ field.label }}</label>
+
+          <div class="mt-1">
+            {% if field.name == "profile_image" %}
+              {{ field }}
+            {% else %}
               <input
                 type="{{ field.field.widget.input_type|default:'text' }}"
                 name="{{ field.name }}"
                 value="{{ field.value|default_if_none:'' }}"
                 class="w-full rounded-xl border px-3 py-2"
               >
-            </div>
-
-            {% if field.help_text %}
-              <p class="text-xs text-gray-500 mt-1">{{ field.help_text }}</p>
-            {% endif %}
-
-            {% if field.errors %}
-              <p class="text-sm text-red-700 mt-1">{{ field.errors|striptags }}</p>
             {% endif %}
           </div>
-        {% endfor %}
+
+          {% if field.help_text %}
+            <p class="text-xs text-gray-500 mt-1">{{ field.help_text }}</p>
+          {% endif %}
+
+          {% if field.errors %}
+            <p class="text-sm text-red-700 mt-1">{{ field.errors|striptags }}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
 
         <button class="w-full rounded-xl bg-gray-900 text-white font-medium py-3 hover:opacity-90 transition">
           Crear tienda
