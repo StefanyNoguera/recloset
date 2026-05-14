@@ -21,10 +21,7 @@ load_dotenv(BASE_DIR / ".env")
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-SECRET_KEY = os.environ.get(
-    "SECRET_KEY",
-    "django-insecure-%$zs0aq87$oabnm+10+f-b1$e-jj@n+$ui(w*13rrexb7k6buy",
-)
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 
